@@ -121,4 +121,53 @@ body{
   border-radius:20px;
 
   overflow:hidden;
+}.topbar{
+
+  width:100%;
+
+  display:flex;
+
+  align-items:center;
+
+  gap:15px;
+
+  margin-bottom:30px;
+}
+
+.logoBox{
+
+  width:60px;
+
+  height:60px;
+
+  border-radius:18px;
+
+  background:#8B5CF6;
+
+  display:flex;
+
+  align-items:center;
+
+  justify-content:center;
+
+  font-size:28px;
+
+  box-shadow:
+  0 0 25px rgba(139,92,246,.6);
+}
+
+.miniText{
+
+  color:#A1A1AA;
+
+  margin-top:-10px;
+
+  font-size:14px;
+}
+
+.green{
+
+  border:1px solid #22C55E;
+
+  color:#22C55E;
 }

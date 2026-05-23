@@ -62,3 +62,40 @@ function abrirMaps(){
   const url = `https://www.google.com/maps/dir/?api=1&origin=${encodeURIComponent(recogida)}&destination=${encodeURIComponent(destino)}&travelmode=driving`;
   window.open(url,"_blank");
 }
+function avisarCliente(){
+
+  const telefono =
+    localStorage.getItem("telefono");
+
+  const nombre =
+    localStorage.getItem("nombre");
+
+  const tiempo =
+    localStorage.getItem("duration");
+
+  const mensaje =
+
+`🏍️ MotoGo
+
+Hola ${nombre}
+
+Tu conductor ya va en camino 🚀
+
+⏱️ Tiempo estimado:
+${tiempo}
+
+Gracias por usar MotoGo 😎`;
+
+  const numero =
+    "52" + telefono;
+
+  const url =
+
+`https://wa.me/${numero}?text=${encodeURIComponent(mensaje)}`;
+
+  window.open(
+    url,
+    "_blank"
+  );
+
+}

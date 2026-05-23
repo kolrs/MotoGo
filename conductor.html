@@ -1,25 +1,117 @@
 <!DOCTYPE html>
 <html lang="es">
+
 <head>
+
   <meta charset="UTF-8"/>
-  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
-  <title>Panel Conductor - MotoGo</title>
-  <link rel="stylesheet" href="style.css"/>
+
+  <meta
+    name="viewport"
+    content="width=device-width, initial-scale=1.0"
+  />
+
+  <title>
+    Panel Conductor - MotoGo
+  </title>
+
+  <link
+    rel="stylesheet"
+    href="style.css"
+  />
+
 </head>
+
 <body>
+
   <div class="container">
-    <h1 class="logo">MotoGo</h1>
-    <p class="slogan">Panel Conductor</p>
-    <div class="card">Cliente: <span id="mostrarNombre"></span></div>
-    <div class="card">Teléfono: <span id="mostrarTelefono"></span></div>
-    <div class="card">Recogida: <span id="mostrarRecogida"></span></div>
-    <div class="card">Destino: <span id="mostrarDestino"></span></div>
-    <div class="card">Distancia: <span id="mostrarDistancia"></span></div>
-    <div class="card">Tiempo: <span id="mostrarTiempo"></span></div>
-    <button class="btn" onclick="llegareEn(5)">Llegaré en 5 min</button>
-    <button class="btn" onclick="abrirMaps()">Abrir en Google Maps</button>
-    <button class="btn secondary" onclick="volverInicio()">Volver al inicio</button>
+
+    <div class="topbar">
+
+      <div class="logoBox">
+
+        🏍️
+
+      </div>
+
+      <div>
+
+        <h1 class="logo">
+          MotoGo
+        </h1>
+
+        <p class="miniText">
+          Panel Conductor
+        </p>
+
+      </div>
+
+    </div>
+
+    <div class="card">
+      👤 Cliente:
+      <span id="mostrarNombre"></span>
+    </div>
+
+    <div class="card">
+      📞 Teléfono:
+      <span id="mostrarTelefono"></span>
+    </div>
+
+    <div class="card">
+      📍 Recogida:
+      <span id="mostrarRecogida"></span>
+    </div>
+
+    <div class="card">
+      🏁 Destino:
+      <span id="mostrarDestino"></span>
+    </div>
+
+    <div class="card">
+      🛣️ Distancia:
+      <span id="mostrarDistancia"></span>
+    </div>
+
+    <div class="card">
+      ⏱️ Tiempo:
+      <span id="mostrarTiempo"></span>
+    </div>
+
+    <div class="card green">
+
+      🚀 Estado:
+      En camino
+
+    </div>
+
+    <button
+      class="btn"
+      onclick="avisarCliente()">
+
+      🚀 Voy en camino
+
+    </button>
+
+    <button
+      class="btn"
+      onclick="abrirMaps()">
+
+      🗺️ Abrir Google Maps
+
+    </button>
+
+    <button
+      class="btn secondary"
+      onclick="volverInicio()">
+
+      Volver al inicio
+
+    </button>
+
   </div>
+
   <script src="app.js"></script>
+
 </body>
+
 </html>
