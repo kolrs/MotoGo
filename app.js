@@ -140,4 +140,36 @@ function iniciarViaje(){
     "_blank"
   );
 
+}function initMap(){
+
+  const ubicacion = {
+
+    lat:18.4665,
+    lng:-97.4000
+
+  };
+
+  const map =
+    new google.maps.Map(
+
+      document.getElementById("map"),
+
+      {
+
+        zoom:14,
+
+        center:ubicacion
+
+      }
+
+    );
+
+  new google.maps.places.Autocomplete(
+    document.getElementById("recogida")
+  );
+
+  new google.maps.places.Autocomplete(
+    document.getElementById("destino")
+  );
+
 }
