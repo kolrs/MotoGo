@@ -1,17 +1,29 @@
 <!DOCTYPE html>
 <html lang="es">
 <head>
-  <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
-  <title>MotoGo</title>
-  <link rel="stylesheet" href="style.css"/>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>MotoGo</title>
+    <link rel="stylesheet" href="style.css">
 </head>
 <body>
-  <div class="container">
-    <h1 class="logo">MotoGo</h1>
-    <p class="slogan">Rápido. Seguro. MotoGo.</p>
-    <button class="btn" onclick="irSolicitud()">Solicitar viaje</button>
-  </div>
-  <script src="app.js"></script>
+    <div class="background"></div>
+
+    <div class="container">
+        <img src="Logo.png" alt="MotoGo Logo" class="logo">
+
+        <div class="card">
+            <h1>MotoGo</h1>
+            <p class="slogan">Rápido. Seguro. MotoGo.</p>
+
+            <input type="text" id="name" placeholder="Tu nombre">
+            <input type="tel" id="phone" placeholder="Tu teléfono">
+            <input type="text" id="destination" placeholder="Destino">
+
+            <button class="btn" onclick="solicitarViaje()">Solicitar viaje</button>
+        </div>
+    </div>
+
+    <script src="app.js"></script>
 </body>
 </html>
