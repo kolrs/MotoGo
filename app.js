@@ -39,7 +39,7 @@ function enviarWhatsApp(){
   const distancia = localStorage.getItem("distance");
   const duracion = localStorage.getItem("duration");
   const km = parseFloat(distancia.replace(" km","".replace(",",".")));
-  const precio = 35 + (km*5);
+  const precio = 25 + (km*5);
   const mensaje = `🏍️ MotoGo\n\nCliente: ${nombre}\n📍 Recogida: ${recogida}\n🏁 Destino: ${destino}\n🛣️ Distancia: ${distancia}\n⏱️ Tiempo estimado: ${duracion}\n💰 Total: $${precio.toFixed(0)} MXN`;
   const numero = "5212383984676";
   const url = `https://wa.me/${numero}?text=${encodeURIComponent(mensaje)}`;
@@ -57,10 +57,19 @@ function mostrarDatosConductor(){
 if(window.location.href.includes("conductor.html")){ mostrarDatosConductor(); }
 function llegareEn(minutos){ alert(`El conductor llegará en ${minutos} minutos`); }
 function abrirMaps(){
-  const recogida = localStorage.getItem("recogida");
-  const destino = localStorage.getItem("destino");
-  const url = `https://www.google.com/maps/dir/?api=1&origin=${encodeURIComponent(recogida)}&destination=${encodeURIComponent(destino)}&travelmode=driving`;
-  window.open(url,"_blank");
+
+  const recogida =
+    localStorage.getItem("recogida");
+
+  const url =
+
+`https://www.google.com/maps/dir/?api=1&destination=${encodeURIComponent(recogida)}&travelmode=driving`;
+
+  window.open(
+    url,
+    "_blank"
+  );
+
 }
 function avisarCliente(){
 
