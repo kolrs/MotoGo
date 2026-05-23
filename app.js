@@ -107,4 +107,37 @@ Gracias por usar MotoGo 😎`;
     "_blank"
   );
 
+}function irPorCliente(){
+
+  const recogida =
+    localStorage.getItem("recogida");
+
+  const url =
+
+`https://www.google.com/maps/dir/?api=1&destination=${encodeURIComponent(recogida)}&travelmode=driving`;
+
+  window.open(
+    url,
+    "_blank"
+  );
+
+}
+
+function iniciarViaje(){
+
+  const recogida =
+    localStorage.getItem("recogida");
+
+  const destino =
+    localStorage.getItem("destino");
+
+  const url =
+
+`https://www.google.com/maps/dir/?api=1&origin=${encodeURIComponent(recogida)}&destination=${encodeURIComponent(destino)}&travelmode=driving`;
+
+  window.open(
+    url,
+    "_blank"
+  );
+
 }
