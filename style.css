@@ -1,0 +1,124 @@
+*{
+  margin:0;
+  padding:0;
+  box-sizing:border-box;
+}
+
+body{
+  background:#0F0F12;
+  color:#F5F5F7;
+  font-family:Arial, sans-serif;
+
+  min-height:100vh;
+
+  display:flex;
+  justify-content:center;
+  align-items:center;
+
+  padding:20px;
+}
+
+.container{
+
+  width:100%;
+  max-width:400px;
+
+  display:flex;
+  flex-direction:column;
+  gap:20px;
+
+  text-align:center;
+}
+
+.logo{
+
+  font-size:60px;
+
+  color:#A78BFA;
+}
+
+.slogan{
+
+  color:#A1A1AA;
+
+  font-size:18px;
+}
+
+.input{
+
+  width:100%;
+
+  padding:16px;
+
+  border:none;
+
+  border-radius:16px;
+
+  background:#17171C;
+
+  color:white;
+
+  font-size:16px;
+
+  outline:none;
+}
+
+.card{
+
+  background:#17171C;
+
+  padding:18px;
+
+  border-radius:18px;
+
+  color:white;
+}
+
+.btn{
+
+  width:100%;
+
+  padding:16px;
+
+  border:none;
+
+  border-radius:18px;
+
+  background:linear-gradient(
+    135deg,
+    #8B5CF6,
+    #A78BFA
+  );
+
+  color:white;
+
+  font-size:18px;
+
+  cursor:pointer;
+
+  transition:0.3s;
+}
+
+.btn:hover{
+
+  transform:scale(1.03);
+
+  box-shadow:0 0 20px #8B5CF6;
+}
+
+.secondary{
+  background:#27272A;
+}
+
+.danger{
+  background:#DC2626;
+}#map{
+
+  width:100%;
+
+  height:300px;
+
+  border-radius:20px;
+
+  overflow:hidden;
+}

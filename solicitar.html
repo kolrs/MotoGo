@@ -1,0 +1,173 @@
+<!DOCTYPE html>
+<html lang="es">
+
+<head>
+
+  <meta charset="UTF-8"/>
+
+  <meta
+    name="viewport"
+    content="width=device-width, initial-scale=1.0"
+  />
+
+  <title>
+    Solicitar viaje - MotoGo
+  </title>
+
+  <link
+    rel="stylesheet"
+    href="style.css"
+  />
+
+  <script
+    async
+    defer
+    src="https://maps.googleapis.com/maps/api/js?key=AIzaSyBFE4kn9LeKNcSMugg2fdcuBpGeejvNWXg&libraries=places&callback=initMap">
+  </script>
+
+</head>
+
+<body>
+
+  <div class="container">
+
+    <h1 class="logo">
+      MotoGo
+    </h1>
+
+    <p class="slogan">
+      Solicita tu viaje
+    </p>
+
+    <input
+      type="text"
+      id="nombre"
+      class="input"
+      placeholder="Tu nombre"
+    />
+
+    <input
+      type="text"
+      id="telefono"
+      class="input"
+      placeholder="Tu teléfono"
+    />
+
+    <input
+      type="text"
+      id="recogida"
+      class="input"
+      placeholder="Punto de recogida"
+    />
+
+    <input
+      type="text"
+      id="destino"
+      class="input"
+      placeholder="Destino"
+    />
+
+    <div id="map"></div>
+
+    <button
+      class="btn"
+      onclick="guardarDatos()">
+
+      Calcular viaje
+
+    </button>
+
+  </div>
+
+  <script>
+
+    let map;
+
+    function initMap(){
+
+      const ubicacion = {
+
+        lat: 18.4665,
+        lng: -97.4000
+
+      };
+
+      map = new google.maps.Map(
+
+        document.getElementById("map"),
+
+        {
+
+          zoom: 14,
+
+          center: ubicacion,
+
+          styles: [
+
+            {
+
+              elementType: "geometry",
+
+              stylers: [
+                { color: "#1d1d1d" }
+              ]
+
+            },
+
+            {
+
+              elementType: "labels.text.stroke",
+
+              stylers: [
+                { color: "#1d1d1d" }
+              ]
+
+            },
+
+            {
+
+              elementType: "labels.text.fill",
+
+              stylers: [
+                { color: "#8ec3b9" }
+              ]
+
+            }
+
+          ]
+
+        }
+
+      );
+
+      new google.maps.Marker({
+
+        position: ubicacion,
+
+        map: map
+
+      });
+
+      const recogidaInput =
+        document.getElementById("recogida");
+
+      const destinoInput =
+        document.getElementById("destino");
+
+      new google.maps.places.Autocomplete(
+        recogidaInput
+      );
+
+      new google.maps.places.Autocomplete(
+        destinoInput
+      );
+
+    }
+
+  </script>
+
+  <script src="app.js"></script>
+
+</body>
+
+</html>

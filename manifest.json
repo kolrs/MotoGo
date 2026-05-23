@@ -1,0 +1,8 @@
+{
+  "name": "MotoGo",
+  "short_name": "MotoGo",
+  "start_url": "index.html",
+  "display": "standalone",
+  "background_color": "#0F0F12",
+  "theme_color": "#8B5CF6"
+}
