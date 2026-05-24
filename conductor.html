@@ -11,7 +11,7 @@
   />
 
   <title>
-    Panel Conductor - MotoGo
+    Panel Conductor
   </title>
 
   <link
@@ -23,66 +23,112 @@
 
 <body>
 
+  <script>
+
+    const viajeActivo =
+    localStorage.getItem(
+      "viajeActivo"
+    );
+
+    if(viajeActivo !== "si"){
+
+      document.body.innerHTML = `
+
+      <div
+      style="
+      background:#111827;
+      color:white;
+      height:100vh;
+      display:flex;
+      justify-content:center;
+      align-items:center;
+      font-family:Arial;
+      ">
+
+      <h1>
+      No hay viajes activos
+      </h1>
+
+      </div>
+
+      `;
+
+    }
+
+  </script>
+
   <div class="container">
 
-    <div class="topbar">
+    <img
+      src="Logo.png"
+      class="logo"
+    />
 
-      <div class="logoBox">
+    <h1>
+      Panel conductor
+    </h1>
 
-        🏍️
-
-      </div>
-
-      <div>
-
-        <h1 class="logo">
-          MotoGo
-        </h1>
-
-        <p class="miniText">
-          Panel Conductor
-        </p>
-
-      </div>
-
-    </div>
+    <p class="slogan">
+      Viaje activo
+    </p>
 
     <div class="card">
+
       👤 Cliente:
       <span id="mostrarNombre"></span>
+
     </div>
 
     <div class="card">
+
       📞 Teléfono:
       <span id="mostrarTelefono"></span>
+
     </div>
 
     <div class="card">
+
       📍 Recogida:
       <span id="mostrarRecogida"></span>
+
     </div>
 
     <div class="card">
+
       🏁 Destino:
       <span id="mostrarDestino"></span>
+
     </div>
 
     <div class="card">
+
       🛣️ Distancia:
       <span id="mostrarDistancia"></span>
+
     </div>
 
     <div class="card">
+
       ⏱️ Tiempo:
       <span id="mostrarTiempo"></span>
-    </div>
-
-    <div class="card green">
-
-      🚀 Estado:
-      En camino
 
     </div>
+
+    <button
+      class="btn"
+      onclick="irPorCliente()">
+
+      📍 Ir por cliente
+
+    </button>
+
+    <button
+      class="btn"
+      onclick="iniciarViaje()">
+
+      🏍️ Iniciar viaje
+
+    </button>
 
     <button
       class="btn"
@@ -93,26 +139,10 @@
     </button>
 
     <button
-class="btn"
-onclick="irPorCliente()">
+      class="btn red"
+      onclick="finalizarViaje()">
 
-📍 Ir por cliente
-
-</button>
-
-<button
-class="btn"
-onclick="iniciarViaje()">
-
-🏍️ Iniciar viaje
-
-</button>
-
-    <button
-      class="btn secondary"
-      onclick="volverInicio()">
-
-      Volver al inicio
+      ✅ Finalizar viaje
 
     </button>
 
