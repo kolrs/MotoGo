@@ -83,7 +83,7 @@ function guardarDatos(){
       );
 
       window.location.href =
-      "conductor.html";
+      "confirmacion.html";
 
     }
 
@@ -137,40 +137,6 @@ function initMap(){
 
 function mostrarDatosConductor(){
 
-  const viajeActivo =
-  localStorage.getItem(
-    "viajeActivo"
-  );
-
-  if(viajeActivo !== "si"){
-
-    document.body.innerHTML =
-
-    `
-
-    <div
-    style="
-    background:#111827;
-    color:white;
-    height:100vh;
-    display:flex;
-    justify-content:center;
-    align-items:center;
-    font-family:Arial;
-    ">
-
-    <h1>
-    No hay viajes activos
-    </h1>
-
-    </div>
-
-    `;
-
-    return;
-
-  }
-
   document.getElementById(
     "mostrarNombre"
   ).innerText =
@@ -212,15 +178,6 @@ function mostrarDatosConductor(){
   localStorage.getItem(
     "duration"
   );
-
-}
-
-if(
-window.location.href.includes(
-  "cotizacion.html"
-)){
-
-  mostrarDatosConductor();
 
 }
 
@@ -317,6 +274,7 @@ function finalizarViaje(){
     "Viaje finalizado"
   );
 
-  window.location.reload();
+  window.location.href =
+  "index.html";
 
 }
