@@ -217,7 +217,7 @@ function mostrarDatosConductor(){
 
 if(
 window.location.href.includes(
-  "conductor.html"
+  "cotizacion.html"
 )){
 
   mostrarDatosConductor();
