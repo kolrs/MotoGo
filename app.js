@@ -22,7 +22,10 @@ function guardarDatos(){
       const durationText = result.routes[0].legs[0].duration.text;
       localStorage.setItem("distance", distanceText);
       localStorage.setItem("duration", durationText);
-      window.location.href = "cotizacion.html";
+    localStorage.setItem(
+  "viajeActivo",
+  "si"
+);  window.location.href = "cotizacion.html";
     } else {
       alert('No se pudo calcular la ruta. Intenta otra dirección.');
     }
@@ -171,5 +174,181 @@ function iniciarViaje(){
   new google.maps.places.Autocomplete(
     document.getElementById("destino")
   );
+
+}function mostrarDatosConductor(){
+
+  document.getElementById(
+    "mostrarNombre"
+  ).innerText =
+  localStorage.getItem(
+    "nombre"
+  );
+
+  document.getElementById(
+    "mostrarTelefono"
+  ).innerText =
+  localStorage.getItem(
+    "telefono"
+  );
+
+  document.getElementById(
+    "mostrarRecogida"
+  ).innerText =
+  localStorage.getItem(
+    "recogida"
+  );
+
+  document.getElementById(
+    "mostrarDestino"
+  ).innerText =
+  localStorage.getItem(
+    "destino"
+  );
+
+  document.getElementById(
+    "mostrarDistancia"
+  ).innerText =
+  localStorage.getItem(
+    "distance"
+  );
+
+  document.getElementById(
+    "mostrarTiempo"
+  ).innerText =
+  localStorage.getItem(
+    "duration"
+  );
+
+}
+
+if(
+window.location.href.includes(
+  "conductor.html"
+)){
+
+  mostrarDatosConductor();
+
+}
+
+function irPorCliente(){
+
+  const recogida =
+  localStorage.getItem(
+    "recogida"
+  );
+
+  const url =
+
+`https://www.google.com/maps/dir/?api=1&destination=${encodeURIComponent(recogida)}&travelmode=driving`;
+
+  window.open(
+    url,
+    "_blank"
+  );
+
+}
+
+function iniciarViaje(){
+
+  const recogida =
+  localStorage.getItem(
+    "recogida"
+  );
+
+  const destino =
+  localStorage.getItem(
+    "destino"
+  );
+
+  const url =
+
+`https://www.google.com/maps/dir/?api=1&origin=${encodeURIComponent(recogida)}&destination=${encodeURIComponent(destino)}&travelmode=driving`;
+
+  window.open(
+    url,
+    "_blank"
+  );
+
+}
+
+function avisarCliente(){
+
+  const telefono =
+  localStorage.getItem(
+    "telefono"
+  );
+
+  const nombre =
+  localStorage.getItem(
+    "nombre"
+  );
+
+  const tiempo =
+  localStorage.getItem(
+    "duration"
+  );
+
+  const mensaje =
+
+`🏍️ MotoGo
+
+Hola ${nombre}
+
+Tu conductor ya va en camino 🚀
+
+⏱️ Tiempo estimado:
+${tiempo}
+
+Gracias por usar MotoGo 😎`;
+
+  const numero =
+  "52" + telefono;
+
+  const url =
+
+`https://wa.me/${numero}?text=${encodeURIComponent(mensaje)}`;
+
+  window.open(
+    url,
+    "_blank"
+  );
+
+}
+
+function finalizarViaje(){
+
+  localStorage.removeItem(
+    "viajeActivo"
+  );
+
+  localStorage.removeItem(
+    "nombre"
+  );
+
+  localStorage.removeItem(
+    "telefono"
+  );
+
+  localStorage.removeItem(
+    "recogida"
+  );
+
+  localStorage.removeItem(
+    "destino"
+  );
+
+  localStorage.removeItem(
+    "distance"
+  );
+
+  localStorage.removeItem(
+    "duration"
+  );
+
+  alert(
+    "Viaje finalizado"
+  );
+
+  window.location.reload();
 
 }
