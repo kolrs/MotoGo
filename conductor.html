@@ -11,7 +11,7 @@
   />
 
   <title>
-    Panel Conductor
+    Panel conductor
   </title>
 
   <link
@@ -22,40 +22,6 @@
 </head>
 
 <body>
-
-  <script>
-
-    const viajeActivo =
-    localStorage.getItem(
-      "viajeActivo"
-    );
-
-    if(viajeActivo !== "si"){
-
-      document.body.innerHTML = `
-
-      <div
-      style="
-      background:#111827;
-      color:white;
-      height:100vh;
-      display:flex;
-      justify-content:center;
-      align-items:center;
-      font-family:Arial;
-      ">
-
-      <h1>
-      No hay viajes activos
-      </h1>
-
-      </div>
-
-      `;
-
-    }
-
-  </script>
 
   <div class="container">
 

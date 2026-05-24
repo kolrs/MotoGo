@@ -351,4 +351,43 @@ function finalizarViaje(){
 
   window.location.reload();
 
+}function verificarViajeActivo(){
+
+  const viajeActivo =
+  localStorage.getItem(
+    "viajeActivo"
+  );
+
+  if(
+    !viajeActivo &&
+    window.location.href.includes(
+      "conductor.html"
+    )
+  ){
+
+    document.body.innerHTML = `
+
+    <div
+    style="
+    background:#111827;
+    color:white;
+    height:100vh;
+    display:flex;
+    justify-content:center;
+    align-items:center;
+    font-family:Arial;
+    ">
+
+    <h1>
+    No hay viajes activos
+    </h1>
+
+    </div>
+
+    `;
+
+  }
+
 }
+
+verificarViajeActivo();
