@@ -361,7 +361,7 @@ function avisarCliente(){
 
 Hola ${nombre}
 
-Tu conductor ya va en camino 🚀
+Ya voy en camino 🚀
 
 ⏱️ Tiempo estimado:
 ${tiempo}
