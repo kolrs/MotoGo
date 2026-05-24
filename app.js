@@ -20,6 +20,21 @@ function guardarDatos(){
     "destino"
   ).value;
 
+  if(
+    !nombre ||
+    !telefono ||
+    !recogida ||
+    !destino
+  ){
+
+    alert(
+      "Completa todos los campos"
+    );
+
+    return;
+
+  }
+
   localStorage.setItem(
     "nombre",
     nombre
@@ -92,10 +107,16 @@ function guardarDatos(){
         precio.toFixed(0)
       );
 
-      enviarWhatsApp();
-
       window.location.href =
       "confirmacion.html";
+
+    }
+
+    else{
+
+      alert(
+        "No se pudo calcular la ruta"
+      );
 
     }
 
@@ -103,7 +124,7 @@ function guardarDatos(){
 
 }
 
-function enviarWhatsApp(){
+function confirmarViaje(){
 
   const nombre =
   localStorage.getItem(
@@ -177,6 +198,13 @@ $${precio} MXN`;
     "_blank"
   );
 
+  setTimeout(()=>{
+
+    window.location.href =
+    "index.html";
+
+  },1000);
+
 }
 
 function initMap(){
@@ -230,42 +258,42 @@ function mostrarDatosConductor(){
   ).innerText =
   localStorage.getItem(
     "nombre"
-  );
+  ) || "-";
 
   document.getElementById(
     "mostrarTelefono"
   ).innerText =
   localStorage.getItem(
     "telefono"
-  );
+  ) || "-";
 
   document.getElementById(
     "mostrarRecogida"
   ).innerText =
   localStorage.getItem(
     "recogida"
-  );
+  ) || "-";
 
   document.getElementById(
     "mostrarDestino"
   ).innerText =
   localStorage.getItem(
     "destino"
-  );
+  ) || "-";
 
   document.getElementById(
     "mostrarDistancia"
   ).innerText =
   localStorage.getItem(
     "distance"
-  );
+  ) || "-";
 
   document.getElementById(
     "mostrarTiempo"
   ).innerText =
   localStorage.getItem(
     "duration"
-  );
+  ) || "-";
 
 }
 

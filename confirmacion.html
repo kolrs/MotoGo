@@ -31,28 +31,42 @@
     />
 
     <h1>
-      MotoGo
+      Confirmar viaje
     </h1>
 
     <p class="slogan">
-      Viaje solicitado 😎🏍️
+      Tu conductor será notificado 😎🏍️
     </p>
 
     <div class="card">
 
-      Tu conductor fue notificado correctamente por WhatsApp.
+      💰 Total:
+      $<span id="precio"></span> MXN
 
     </div>
 
     <button
       class="btn"
-      onclick="window.location.href='index.html'">
+      onclick="confirmarViaje()">
 
-      Volver al inicio
+      Confirmar y enviar
 
     </button>
 
   </div>
+
+  <script src="app.js"></script>
+
+  <script>
+
+    document.getElementById(
+      "precio"
+    ).innerText =
+    localStorage.getItem(
+      "precio"
+    );
+
+  </script>
 
 </body>
 
