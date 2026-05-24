@@ -77,10 +77,22 @@ function guardarDatos(){
         tiempo
       );
 
-      localStorage.setItem(
-        "viajeActivo",
-        "si"
+      const km =
+      parseFloat(
+        distancia
+        .replace(" km","")
+        .replace(",",".")
       );
+
+      const precio =
+      25 + (km * 5);
+
+      localStorage.setItem(
+        "precio",
+        precio.toFixed(0)
+      );
+
+      enviarWhatsApp();
 
       window.location.href =
       "confirmacion.html";
@@ -88,6 +100,82 @@ function guardarDatos(){
     }
 
   });
+
+}
+
+function enviarWhatsApp(){
+
+  const nombre =
+  localStorage.getItem(
+    "nombre"
+  );
+
+  const telefono =
+  localStorage.getItem(
+    "telefono"
+  );
+
+  const recogida =
+  localStorage.getItem(
+    "recogida"
+  );
+
+  const destino =
+  localStorage.getItem(
+    "destino"
+  );
+
+  const distancia =
+  localStorage.getItem(
+    "distance"
+  );
+
+  const tiempo =
+  localStorage.getItem(
+    "duration"
+  );
+
+  const precio =
+  localStorage.getItem(
+    "precio"
+  );
+
+  const mensaje =
+
+`🏍️ MotoGo
+
+👤 Cliente:
+${nombre}
+
+📞 Teléfono:
+${telefono}
+
+📍 Recogida:
+${recogida}
+
+🏁 Destino:
+${destino}
+
+🛣️ Distancia:
+${distancia}
+
+⏱️ Tiempo:
+${tiempo}
+
+💰 Total:
+$${precio} MXN`;
+
+  const numero =
+  "5212383984676";
+
+  const url =
+
+`https://wa.me/${numero}?text=${encodeURIComponent(mensaje)}`;
+
+  window.open(
+    url,
+    "_blank"
+  );
 
 }
 

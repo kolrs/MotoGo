@@ -146,6 +146,14 @@ input:focus{
 
 }
 
+.secondary{
+
+  background:#374151;
+
+  color:white;
+
+}
+
 .card{
 
   width:100%;
@@ -159,6 +167,8 @@ input:focus{
   margin-bottom:15px;
 
   color:white;
+
+  line-height:1.5;
 
 }
 
