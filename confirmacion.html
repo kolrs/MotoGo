@@ -1,25 +1,139 @@
-<script src="app.js"></script>
+<!DOCTYPE html>
+<html lang="es">
 
-<script>
+<head>
 
-  const viaje =
+  <meta charset="UTF-8"/>
 
-  JSON.parse(
+  <meta
+    name="viewport"
+    content="width=device-width, initial-scale=1.0"
+  />
 
-    localStorage.getItem(
-      "ultimoViaje"
-    )
+  <title>
+    Confirmar viaje
+  </title>
 
-  );
+  <link
+    rel="stylesheet"
+    href="style.css"
+  />
 
-  if(viaje){
+</head>
+
+<body>
+
+  <div class="container">
+
+    <img
+      src="Logo.png"
+      class="logo"
+    />
+
+    <h1>
+      Confirmar viaje
+    </h1>
+
+    <p class="slogan">
+      Tu conductor será notificado 😎🏍️
+    </p>
+
+    <div class="card">
+
+      💰 Total:
+      $<span id="precio">0</span> MXN
+
+    </div>
+
+    <button
+      type="button"
+      class="btn"
+      id="confirmarBtn">
+
+      Confirmar y enviar
+
+    </button>
+
+  </div>
+
+  <script>
+
+    const viaje = JSON.parse(
+
+      localStorage.getItem(
+        "ultimoViaje"
+      )
+
+    );
+
+    if(viaje){
+
+      document.getElementById(
+        "precio"
+      ).innerText =
+      viaje.precio;
+
+    }
 
     document.getElementById(
-      "precio"
-    ).innerText =
+      "confirmarBtn"
+    ).addEventListener(
 
-    viaje.precio;
+      "click",
 
-  }
+      ()=>{
 
-</script>
+        if(!viaje){
+
+          alert(
+            "No hay viaje"
+          );
+
+          return;
+
+        }
+
+        const mensaje =
+
+`🏍️ MotoGo
+
+👤 Cliente:
+${viaje.nombre}
+
+📞 Teléfono:
+${viaje.telefono}
+
+📍 Recogida:
+${viaje.recogida}
+
+🏁 Destino:
+${viaje.destino}
+
+🛣️ Distancia:
+${viaje.distancia}
+
+⏱️ Tiempo:
+${viaje.tiempo}
+
+💰 Total:
+$${viaje.precio} MXN`;
+
+        const numero =
+        "5212383984676";
+
+        const url =
+
+`https://api.whatsapp.com/send?phone=${numero}&text=${encodeURIComponent(mensaje)}`;
+
+        window.location.href =
+        url;
+
+      }
+
+    );
+
+  </script>
+
+</body>
+
+</html>
