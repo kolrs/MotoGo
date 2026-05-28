@@ -11,7 +11,7 @@
   />
 
   <title>
-    Confirmación
+    Confirmar viaje
   </title>
 
   <link
@@ -59,12 +59,29 @@
 
   <script>
 
-    document.getElementById(
-      "precio"
-    ).innerText =
-    localStorage.getItem(
-      "precio"
-    );
+    const viajes = JSON.parse(
+
+      localStorage.getItem(
+        "viajes"
+      )
+
+    ) || [];
+
+    const ultimoViaje =
+
+    viajes[
+      viajes.length - 1
+    ];
+
+    if(ultimoViaje){
+
+      document.getElementById(
+        "precio"
+      ).innerText =
+
+      ultimoViaje.precio;
+
+    }
 
   </script>
 
