@@ -1,3 +1,24 @@
+function obtenerViajes(){
+
+  return JSON.parse(
+
+    localStorage.getItem(
+      "viajes"
+    )
+
+  ) || [];
+
+}
+
+function guardarViajes(viajes){
+
+  localStorage.setItem(
+    "viajes",
+    JSON.stringify(viajes)
+  );
+
+}
+
 function guardarDatos(){
 
   const nombre =
@@ -35,26 +56,6 @@ function guardarDatos(){
 
   }
 
-  localStorage.setItem(
-    "nombre",
-    nombre
-  );
-
-  localStorage.setItem(
-    "telefono",
-    telefono
-  );
-
-  localStorage.setItem(
-    "recogida",
-    recogida
-  );
-
-  localStorage.setItem(
-    "destino",
-    destino
-  );
-
   const service =
   new google.maps.DirectionsService();
 
@@ -82,16 +83,6 @@ function guardarDatos(){
       .legs[0]
       .duration.text;
 
-      localStorage.setItem(
-        "distance",
-        distancia
-      );
-
-      localStorage.setItem(
-        "duration",
-        tiempo
-      );
-
       const km =
       parseFloat(
         distancia
@@ -102,14 +93,30 @@ function guardarDatos(){
       const precio =
       25 + (km * 5);
 
-      localStorage.setItem(
-        "precio",
+      const nuevoViaje = {
+
+        nombre,
+        telefono,
+        recogida,
+        destino,
+        distancia,
+        tiempo,
+        precio:
         precio.toFixed(0)
+
+      };
+
+      const viajes =
+      obtenerViajes();
+
+      viajes.push(
+        nuevoViaje
       );
-      localStorage.setItem(
-  "nuevoViaje",
-  Date.now()
-);
+
+      guardarViajes(
+        viajes
+      );
+
       window.location.href =
       "confirmacion.html";
 
@@ -129,65 +136,38 @@ function guardarDatos(){
 
 function confirmarViaje(){
 
-  const nombre =
-  localStorage.getItem(
-    "nombre"
-  );
+  const viajes =
+  obtenerViajes();
 
-  const telefono =
-  localStorage.getItem(
-    "telefono"
-  );
-
-  const recogida =
-  localStorage.getItem(
-    "recogida"
-  );
-
-  const destino =
-  localStorage.getItem(
-    "destino"
-  );
-
-  const distancia =
-  localStorage.getItem(
-    "distance"
-  );
-
-  const tiempo =
-  localStorage.getItem(
-    "duration"
-  );
-
-  const precio =
-  localStorage.getItem(
-    "precio"
-  );
+  const ultimoViaje =
+  viajes[
+    viajes.length - 1
+  ];
 
   const mensaje =
 
 `🏍️ MotoGo
 
 👤 Cliente:
-${nombre}
+${ultimoViaje.nombre}
 
 📞 Teléfono:
-${telefono}
+${ultimoViaje.telefono}
 
 📍 Recogida:
-${recogida}
+${ultimoViaje.recogida}
 
 🏁 Destino:
-${destino}
+${ultimoViaje.destino}
 
 🛣️ Distancia:
-${distancia}
+${ultimoViaje.distancia}
 
 ⏱️ Tiempo:
-${tiempo}
+${ultimoViaje.tiempo}
 
 💰 Total:
-$${precio} MXN`;
+$${ultimoViaje.precio} MXN`;
 
   const numero =
   "5212383984676";
@@ -258,53 +238,71 @@ function mostrarDatosConductor(){
 
   setInterval(()=>{
 
+    const viajes =
+    obtenerViajes();
+
+    const viaje =
+    viajes[0];
+
+    if(!viaje){
+
+      document.getElementById(
+        "mostrarNombre"
+      ).innerText = "-";
+
+      document.getElementById(
+        "mostrarTelefono"
+      ).innerText = "-";
+
+      document.getElementById(
+        "mostrarRecogida"
+      ).innerText = "-";
+
+      document.getElementById(
+        "mostrarDestino"
+      ).innerText = "-";
+
+      document.getElementById(
+        "mostrarDistancia"
+      ).innerText = "-";
+
+      document.getElementById(
+        "mostrarTiempo"
+      ).innerText = "-";
+
+      return;
+
+    }
+
     document.getElementById(
       "mostrarNombre"
     ).innerText =
-
-    localStorage.getItem(
-      "nombre"
-    ) || "-";
+    viaje.nombre;
 
     document.getElementById(
       "mostrarTelefono"
     ).innerText =
-
-    localStorage.getItem(
-      "telefono"
-    ) || "-";
+    viaje.telefono;
 
     document.getElementById(
       "mostrarRecogida"
     ).innerText =
-
-    localStorage.getItem(
-      "recogida"
-    ) || "-";
+    viaje.recogida;
 
     document.getElementById(
       "mostrarDestino"
     ).innerText =
-
-    localStorage.getItem(
-      "destino"
-    ) || "-";
+    viaje.destino;
 
     document.getElementById(
       "mostrarDistancia"
     ).innerText =
-
-    localStorage.getItem(
-      "distance"
-    ) || "-";
+    viaje.distancia;
 
     document.getElementById(
       "mostrarTiempo"
     ).innerText =
-
-    localStorage.getItem(
-      "duration"
-    ) || "-";
+    viaje.tiempo;
 
   },1000);
 
@@ -312,14 +310,17 @@ function mostrarDatosConductor(){
 
 function irPorCliente(){
 
-  const recogida =
-  localStorage.getItem(
-    "recogida"
-  );
+  const viajes =
+  obtenerViajes();
+
+  const viaje =
+  viajes[0];
+
+  if(!viaje) return;
 
   const url =
 
-`https://www.google.com/maps/dir/?api=1&destination=${encodeURIComponent(recogida)}&travelmode=driving`;
+`https://www.google.com/maps/dir/?api=1&destination=${encodeURIComponent(viaje.recogida)}&travelmode=driving`;
 
   window.open(
     url,
@@ -330,19 +331,17 @@ function irPorCliente(){
 
 function iniciarViaje(){
 
-  const recogida =
-  localStorage.getItem(
-    "recogida"
-  );
+  const viajes =
+  obtenerViajes();
 
-  const destino =
-  localStorage.getItem(
-    "destino"
-  );
+  const viaje =
+  viajes[0];
+
+  if(!viaje) return;
 
   const url =
 
-`https://www.google.com/maps/dir/?api=1&origin=${encodeURIComponent(recogida)}&destination=${encodeURIComponent(destino)}&travelmode=driving`;
+`https://www.google.com/maps/dir/?api=1&origin=${encodeURIComponent(viaje.recogida)}&destination=${encodeURIComponent(viaje.destino)}&travelmode=driving`;
 
   window.open(
     url,
@@ -353,36 +352,29 @@ function iniciarViaje(){
 
 function avisarCliente(){
 
-  const telefono =
-  localStorage.getItem(
-    "telefono"
-  );
+  const viajes =
+  obtenerViajes();
 
-  const nombre =
-  localStorage.getItem(
-    "nombre"
-  );
+  const viaje =
+  viajes[0];
 
-  const tiempo =
-  localStorage.getItem(
-    "duration"
-  );
+  if(!viaje) return;
 
   const mensaje =
 
 `🏍️ MotoGo
 
-Hola ${nombre}
+Hola ${viaje.nombre}
 
-Ya voy en camino 🚀
+Tu conductor ya va en camino 🚀
 
 ⏱️ Tiempo estimado:
-${tiempo}
+${viaje.tiempo}
 
 Gracias por usar MotoGo 😎`;
 
   const numero =
-  "52" + telefono;
+  "52" + viaje.telefono;
 
   const url =
 
@@ -397,60 +389,17 @@ Gracias por usar MotoGo 😎`;
 
 function finalizarViaje(){
 
-  localStorage.removeItem(
-    "nombre"
-  );
+  const viajes =
+  obtenerViajes();
 
-  localStorage.removeItem(
-    "telefono"
-  );
+  viajes.shift();
 
-  localStorage.removeItem(
-    "recogida"
-  );
-
-  localStorage.removeItem(
-    "destino"
-  );
-
-  localStorage.removeItem(
-    "distance"
-  );
-
-  localStorage.removeItem(
-    "duration"
-  );
-
-  localStorage.removeItem(
-    "precio"
+  guardarViajes(
+    viajes
   );
 
   alert(
     "Viaje finalizado"
   );
-
-  document.getElementById(
-    "mostrarNombre"
-  ).innerText = "-";
-
-  document.getElementById(
-    "mostrarTelefono"
-  ).innerText = "-";
-
-  document.getElementById(
-    "mostrarRecogida"
-  ).innerText = "-";
-
-  document.getElementById(
-    "mostrarDestino"
-  ).innerText = "-";
-
-  document.getElementById(
-    "mostrarDistancia"
-  ).innerText = "-";
-
-  document.getElementById(
-    "mostrarTiempo"
-  ).innerText = "-";
 
 }
