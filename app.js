@@ -227,17 +227,8 @@ $${viaje.precio} MXN`;
 
 `https://wa.me/${numero}?text=${encodeURIComponent(mensaje)}`;
 
-  window.open(
-    url,
-    "_blank"
-  );
-
-  setTimeout(()=>{
-
-    window.location.href =
-    "index.html";
-
-  },1000);
+  window.location.href =
+  url;
 
 }
 function initMap(){
