@@ -256,47 +256,57 @@ function initMap(){
 
 function mostrarDatosConductor(){
 
-  document.getElementById(
-    "mostrarNombre"
-  ).innerText =
-  localStorage.getItem(
-    "nombre"
-  ) || "-";
+  setInterval(()=>{
 
-  document.getElementById(
-    "mostrarTelefono"
-  ).innerText =
-  localStorage.getItem(
-    "telefono"
-  ) || "-";
+    document.getElementById(
+      "mostrarNombre"
+    ).innerText =
 
-  document.getElementById(
-    "mostrarRecogida"
-  ).innerText =
-  localStorage.getItem(
-    "recogida"
-  ) || "-";
+    localStorage.getItem(
+      "nombre"
+    ) || "-";
 
-  document.getElementById(
-    "mostrarDestino"
-  ).innerText =
-  localStorage.getItem(
-    "destino"
-  ) || "-";
+    document.getElementById(
+      "mostrarTelefono"
+    ).innerText =
 
-  document.getElementById(
-    "mostrarDistancia"
-  ).innerText =
-  localStorage.getItem(
-    "distance"
-  ) || "-";
+    localStorage.getItem(
+      "telefono"
+    ) || "-";
 
-  document.getElementById(
-    "mostrarTiempo"
-  ).innerText =
-  localStorage.getItem(
-    "duration"
-  ) || "-";
+    document.getElementById(
+      "mostrarRecogida"
+    ).innerText =
+
+    localStorage.getItem(
+      "recogida"
+    ) || "-";
+
+    document.getElementById(
+      "mostrarDestino"
+    ).innerText =
+
+    localStorage.getItem(
+      "destino"
+    ) || "-";
+
+    document.getElementById(
+      "mostrarDistancia"
+    ).innerText =
+
+    localStorage.getItem(
+      "distance"
+    ) || "-";
+
+    document.getElementById(
+      "mostrarTiempo"
+    ).innerText =
+
+    localStorage.getItem(
+      "duration"
+    ) || "-";
+
+  },1000);
 
 }
 
