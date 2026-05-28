@@ -1,90 +1,25 @@
-<!DOCTYPE html>
-<html lang="es">
+<script src="app.js"></script>
 
-<head>
+<script>
 
-  <meta charset="UTF-8"/>
+  const viaje =
 
-  <meta
-    name="viewport"
-    content="width=device-width, initial-scale=1.0"
-  />
+  JSON.parse(
 
-  <title>
-    Confirmar viaje
-  </title>
+    localStorage.getItem(
+      "ultimoViaje"
+    )
 
-  <link
-    rel="stylesheet"
-    href="style.css"
-  />
+  );
 
-</head>
+  if(viaje){
 
-<body>
+    document.getElementById(
+      "precio"
+    ).innerText =
 
-  <div class="container">
+    viaje.precio;
 
-    <img
-      src="Logo.png"
-      class="logo"
-    />
+  }
 
-    <h1>
-      Confirmar viaje
-    </h1>
-
-    <p class="slogan">
-      Tu conductor será notificado 😎🏍️
-    </p>
-
-    <div class="card">
-
-      💰 Total:
-      $<span id="precio"></span> MXN
-
-    </div>
-
-    <button
-      class="btn"
-      onclick="confirmarViaje()">
-
-      Confirmar y enviar
-
-    </button>
-
-  </div>
-
-  <script src="app.js"></script>
-
-  <script>
-
-    const viajes = JSON.parse(
-
-      localStorage.getItem(
-        "viajes"
-      )
-
-    ) || [];
-
-    const ultimoViaje =
-
-    viajes[
-      viajes.length - 1
-    ];
-
-    if(ultimoViaje){
-
-      document.getElementById(
-        "precio"
-      ).innerText =
-
-      ultimoViaje.precio;
-
-    }
-
-  </script>
-
-</body>
-
-</html>
+</script>

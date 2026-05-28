@@ -85,9 +85,11 @@ function guardarDatos(){
 
       const km =
       parseFloat(
+
         distancia
         .replace(" km","")
-        .replace(",",".")
+        .replace(",", ".")
+
       );
 
       const precio =
@@ -95,26 +97,63 @@ function guardarDatos(){
 
       const nuevoViaje = {
 
+        id: Date.now(),
+
+        nombre:
         nombre,
+
+        telefono:
         telefono,
+
+        recogida:
         recogida,
+
+        destino:
         destino,
+
+        distancia:
         distancia,
+
+        tiempo:
         tiempo,
+
         precio:
         precio.toFixed(0)
 
       };
 
       const viajes =
-      obtenerViajes();
+
+      JSON.parse(
+
+        localStorage.getItem(
+          "viajes"
+        )
+
+      ) || [];
 
       viajes.push(
         nuevoViaje
       );
 
-      guardarViajes(
-        viajes
+      localStorage.setItem(
+
+        "viajes",
+
+        JSON.stringify(
+          viajes
+        )
+
+      );
+
+      localStorage.setItem(
+
+        "ultimoViaje",
+
+        JSON.stringify(
+          nuevoViaje
+        )
+
       );
 
       window.location.href =
@@ -136,38 +175,50 @@ function guardarDatos(){
 
 function confirmarViaje(){
 
-  const viajes =
-  obtenerViajes();
+  const viaje =
 
-  const ultimoViaje =
-  viajes[
-    viajes.length - 1
-  ];
+  JSON.parse(
+
+    localStorage.getItem(
+      "ultimoViaje"
+    )
+
+  );
+
+  if(!viaje){
+
+    alert(
+      "No hay viaje"
+    );
+
+    return;
+
+  }
 
   const mensaje =
 
 `🏍️ MotoGo
 
 👤 Cliente:
-${ultimoViaje.nombre}
+${viaje.nombre}
 
 📞 Teléfono:
-${ultimoViaje.telefono}
+${viaje.telefono}
 
 📍 Recogida:
-${ultimoViaje.recogida}
+${viaje.recogida}
 
 🏁 Destino:
-${ultimoViaje.destino}
+${viaje.destino}
 
 🛣️ Distancia:
-${ultimoViaje.distancia}
+${viaje.distancia}
 
 ⏱️ Tiempo:
-${ultimoViaje.tiempo}
+${viaje.tiempo}
 
 💰 Total:
-$${ultimoViaje.precio} MXN`;
+$${viaje.precio} MXN`;
 
   const numero =
   "5212383984676";
@@ -189,7 +240,6 @@ $${ultimoViaje.precio} MXN`;
   },1000);
 
 }
-
 function initMap(){
 
   const ubicacion = {
