@@ -277,10 +277,15 @@ function initMap(){
 
 function mostrarDatosConductor(){
 
-  setInterval(()=>{
+  function actualizar(){
 
-    const viajes =
-    obtenerViajes();
+    const viajes = JSON.parse(
+
+      localStorage.getItem(
+        "viajes"
+      )
+
+    ) || [];
 
     const viaje =
     viajes[0];
@@ -345,7 +350,22 @@ function mostrarDatosConductor(){
     ).innerText =
     viaje.tiempo;
 
-  },1000);
+  }
+
+  actualizar();
+
+  window.addEventListener(
+
+    "storage",
+
+    actualizar
+
+  );
+
+  setInterval(
+    actualizar,
+    1000
+  );
 
 }
 
@@ -430,13 +450,24 @@ Gracias por usar MotoGo 😎`;
 
 function finalizarViaje(){
 
-  const viajes =
-  obtenerViajes();
+  let viajes = JSON.parse(
+
+    localStorage.getItem(
+      "viajes"
+    )
+
+  ) || [];
 
   viajes.shift();
 
-  guardarViajes(
-    viajes
+  localStorage.setItem(
+
+    "viajes",
+
+    JSON.stringify(
+      viajes
+    )
+
   );
 
   alert(
