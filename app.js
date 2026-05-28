@@ -1,23 +1,105 @@
-function obtenerViajes(){
+// ======================
+// FIREBASE
+// ======================
 
-  return JSON.parse(
+const firebaseConfig = {
 
-    localStorage.getItem(
-      "viajes"
-    )
+  apiKey:
+  "AIzaSyCChsHu845YVdkdg_7PHw92vy3g_HeDoqM",
 
-  ) || [];
+  authDomain:
+  "motogo-cea1b.firebaseapp.com",
 
-}
+  databaseURL:
+  "https://motogo-cea1b-default-rtdb.firebaseio.com",
 
-function guardarViajes(viajes){
+  projectId:
+  "motogo-cea1b",
 
-  localStorage.setItem(
-    "viajes",
-    JSON.stringify(viajes)
+  storageBucket:
+  "motogo-cea1b.firebasestorage.app",
+
+  messagingSenderId:
+  "931660222103",
+
+  appId:
+  "1:931660222103:web:9f2b82926b4d996223a3d2",
+
+  measurementId:
+  "G-NKP4C70YPW"
+
+};
+
+firebase.initializeApp(
+  firebaseConfig
+);
+
+const db =
+firebase.database();
+
+
+// ======================
+// MAPA
+// ======================
+
+function initMap(){
+
+  const ubicacion = {
+
+    lat:18.4665,
+    lng:-97.4000
+
+  };
+
+  const map =
+  new google.maps.Map(
+
+    document.getElementById(
+      "map"
+    ),
+
+    {
+
+      zoom:14,
+
+      center:ubicacion
+
+    }
+
   );
 
+  const recogidaInput =
+  document.getElementById(
+    "recogida"
+  );
+
+  const destinoInput =
+  document.getElementById(
+    "destino"
+  );
+
+  if(recogidaInput){
+
+    new google.maps.places.Autocomplete(
+      recogidaInput
+    );
+
+  }
+
+  if(destinoInput){
+
+    new google.maps.places.Autocomplete(
+      destinoInput
+    );
+
+  }
+
 }
+
+
+// ======================
+// GUARDAR VIAJE
+// ======================
 
 function guardarDatos(){
 
@@ -97,8 +179,6 @@ function guardarDatos(){
 
       const nuevoViaje = {
 
-        id: Date.now(),
-
         nombre:
         nombre,
 
@@ -118,32 +198,18 @@ function guardarDatos(){
         tiempo,
 
         precio:
-        precio.toFixed(0)
+        precio.toFixed(0),
+
+        estado:
+        "pendiente",
+
+        timestamp:
+        Date.now()
 
       };
 
-      const viajes =
-
-      JSON.parse(
-
-        localStorage.getItem(
-          "viajes"
-        )
-
-      ) || [];
-
-      viajes.push(
+      db.ref("viajes").push(
         nuevoViaje
-      );
-
-      localStorage.setItem(
-
-        "viajes",
-
-        JSON.stringify(
-          viajes
-        )
-
       );
 
       localStorage.setItem(
@@ -172,6 +238,11 @@ function guardarDatos(){
   });
 
 }
+
+
+// ======================
+// CONFIRMAR VIAJE
+// ======================
 
 function confirmarViaje(){
 
@@ -225,100 +296,75 @@ $${viaje.precio} MXN`;
 
   const url =
 
-`https://wa.me/${numero}?text=${encodeURIComponent(mensaje)}`;
+`https://api.whatsapp.com/send?phone=${numero}&text=${encodeURIComponent(mensaje)}`;
 
   window.location.href =
   url;
 
 }
-function initMap(){
 
-  const ubicacion = {
 
-    lat:18.4665,
-    lng:-97.4000
+// ======================
+// PANEL CONDUCTOR
+// ======================
 
-  };
-
-  const map =
-  new google.maps.Map(
-
-    document.getElementById(
-      "map"
-    ),
-
-    {
-
-      zoom:14,
-
-      center:ubicacion
-
-    }
-
-  );
-
-  new google.maps.places.Autocomplete(
-
-    document.getElementById(
-      "recogida"
-    )
-
-  );
-
-  new google.maps.places.Autocomplete(
-
-    document.getElementById(
-      "destino"
-    )
-
-  );
-
-}
+let viajeActualKey = null;
 
 function mostrarDatosConductor(){
 
-  function actualizar(){
+  db.ref("viajes")
+  .on("value",(snapshot)=>{
 
-    const viajes = JSON.parse(
+    const data =
+    snapshot.val();
 
-      localStorage.getItem(
-        "viajes"
-      )
+    if(!data){
 
-    ) || [];
-
-    const viaje =
-    viajes[0];
-
-    if(!viaje){
-
-      document.getElementById(
-        "mostrarNombre"
-      ).innerText = "-";
-
-      document.getElementById(
-        "mostrarTelefono"
-      ).innerText = "-";
-
-      document.getElementById(
-        "mostrarRecogida"
-      ).innerText = "-";
-
-      document.getElementById(
-        "mostrarDestino"
-      ).innerText = "-";
-
-      document.getElementById(
-        "mostrarDistancia"
-      ).innerText = "-";
-
-      document.getElementById(
-        "mostrarTiempo"
-      ).innerText = "-";
+      limpiarPanel();
 
       return;
 
     }
+
+    const viajes =
+    Object.entries(data);
+
+    const pendientes =
+    viajes.filter(
+
+      ([key,viaje])=>
+
+      viaje.estado ===
+      "pendiente"
+
+    );
+
+    if(
+      pendientes.length === 0
+    ){
+
+      limpiarPanel();
+
+      return;
+
+    }
+
+    pendientes.sort(
+
+      (a,b)=>
+
+      a[1].timestamp -
+      b[1].timestamp
+
+    );
+
+    const [
+      key,
+      viaje
+
+    ] = pendientes[0];
+
+    viajeActualKey = key;
 
     document.getElementById(
       "mostrarNombre"
@@ -350,38 +396,62 @@ function mostrarDatosConductor(){
     ).innerText =
     viaje.tiempo;
 
-  }
-
-  actualizar();
-
-  window.addEventListener(
-
-    "storage",
-
-    actualizar
-
-  );
-
-  setInterval(
-    actualizar,
-    1000
-  );
+  });
 
 }
+
+
+// ======================
+// LIMPIAR PANEL
+// ======================
+
+function limpiarPanel(){
+
+  document.getElementById(
+    "mostrarNombre"
+  ).innerText = "-";
+
+  document.getElementById(
+    "mostrarTelefono"
+  ).innerText = "-";
+
+  document.getElementById(
+    "mostrarRecogida"
+  ).innerText = "-";
+
+  document.getElementById(
+    "mostrarDestino"
+  ).innerText = "-";
+
+  document.getElementById(
+    "mostrarDistancia"
+  ).innerText = "-";
+
+  document.getElementById(
+    "mostrarTiempo"
+  ).innerText = "-";
+
+}
+
+
+// ======================
+// IR POR CLIENTE
+// ======================
 
 function irPorCliente(){
 
-  const viajes =
-  obtenerViajes();
+  const recogida =
+  document.getElementById(
+    "mostrarRecogida"
+  ).innerText;
 
-  const viaje =
-  viajes[0];
-
-  if(!viaje) return;
+  if(
+    recogida === "-"
+  ) return;
 
   const url =
 
-`https://www.google.com/maps/dir/?api=1&destination=${encodeURIComponent(viaje.recogida)}&travelmode=driving`;
+`https://www.google.com/maps/dir/?api=1&destination=${encodeURIComponent(recogida)}&travelmode=driving`;
 
   window.open(
     url,
@@ -389,20 +459,32 @@ function irPorCliente(){
   );
 
 }
+
+
+// ======================
+// INICIAR VIAJE
+// ======================
 
 function iniciarViaje(){
 
-  const viajes =
-  obtenerViajes();
+  const recogida =
+  document.getElementById(
+    "mostrarRecogida"
+  ).innerText;
 
-  const viaje =
-  viajes[0];
+  const destino =
+  document.getElementById(
+    "mostrarDestino"
+  ).innerText;
 
-  if(!viaje) return;
+  if(
+    recogida === "-" ||
+    destino === "-"
+  ) return;
 
   const url =
 
-`https://www.google.com/maps/dir/?api=1&origin=${encodeURIComponent(viaje.recogida)}&destination=${encodeURIComponent(viaje.destino)}&travelmode=driving`;
+`https://www.google.com/maps/dir/?api=1&origin=${encodeURIComponent(recogida)}&destination=${encodeURIComponent(destino)}&travelmode=driving`;
 
   window.open(
     url,
@@ -411,35 +493,51 @@ function iniciarViaje(){
 
 }
 
+
+// ======================
+// AVISAR CLIENTE
+// ======================
+
 function avisarCliente(){
 
-  const viajes =
-  obtenerViajes();
+  const telefono =
+  document.getElementById(
+    "mostrarTelefono"
+  ).innerText;
 
-  const viaje =
-  viajes[0];
+  const nombre =
+  document.getElementById(
+    "mostrarNombre"
+  ).innerText;
 
-  if(!viaje) return;
+  const tiempo =
+  document.getElementById(
+    "mostrarTiempo"
+  ).innerText;
+
+  if(
+    telefono === "-"
+  ) return;
 
   const mensaje =
 
 `🏍️ MotoGo
 
-Hola ${viaje.nombre}
+Hola ${nombre}
 
 Tu conductor ya va en camino 🚀
 
 ⏱️ Tiempo estimado:
-${viaje.tiempo}
+${tiempo}
 
 Gracias por usar MotoGo 😎`;
 
   const numero =
-  "52" + viaje.telefono;
+  "52" + telefono;
 
   const url =
 
-`https://wa.me/${numero}?text=${encodeURIComponent(mensaje)}`;
+`https://api.whatsapp.com/send?phone=${numero}&text=${encodeURIComponent(mensaje)}`;
 
   window.open(
     url,
@@ -448,27 +546,32 @@ Gracias por usar MotoGo 😎`;
 
 }
 
+
+// ======================
+// FINALIZAR VIAJE
+// ======================
+
 function finalizarViaje(){
 
-  let viajes = JSON.parse(
+  if(!viajeActualKey){
 
-    localStorage.getItem(
-      "viajes"
-    )
+    alert(
+      "No hay viaje"
+    );
 
-  ) || [];
+    return;
 
-  viajes.shift();
+  }
 
-  localStorage.setItem(
+  db.ref(
+    "viajes/" +
+    viajeActualKey
+  ).update({
 
-    "viajes",
+    estado:
+    "finalizado"
 
-    JSON.stringify(
-      viajes
-    )
-
-  );
+  });
 
   alert(
     "Viaje finalizado"
