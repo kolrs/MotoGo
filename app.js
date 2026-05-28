@@ -106,7 +106,10 @@ function guardarDatos(){
         "precio",
         precio.toFixed(0)
       );
-
+      localStorage.setItem(
+  "nuevoViaje",
+  Date.now()
+);
       window.location.href =
       "confirmacion.html";
 
@@ -384,13 +387,60 @@ Gracias por usar MotoGo 😎`;
 
 function finalizarViaje(){
 
-  localStorage.clear();
+  localStorage.removeItem(
+    "nombre"
+  );
+
+  localStorage.removeItem(
+    "telefono"
+  );
+
+  localStorage.removeItem(
+    "recogida"
+  );
+
+  localStorage.removeItem(
+    "destino"
+  );
+
+  localStorage.removeItem(
+    "distance"
+  );
+
+  localStorage.removeItem(
+    "duration"
+  );
+
+  localStorage.removeItem(
+    "precio"
+  );
 
   alert(
     "Viaje finalizado"
   );
 
-  window.location.href =
-  "index.html";
+  document.getElementById(
+    "mostrarNombre"
+  ).innerText = "-";
+
+  document.getElementById(
+    "mostrarTelefono"
+  ).innerText = "-";
+
+  document.getElementById(
+    "mostrarRecogida"
+  ).innerText = "-";
+
+  document.getElementById(
+    "mostrarDestino"
+  ).innerText = "-";
+
+  document.getElementById(
+    "mostrarDistancia"
+  ).innerText = "-";
+
+  document.getElementById(
+    "mostrarTiempo"
+  ).innerText = "-";
 
 }
